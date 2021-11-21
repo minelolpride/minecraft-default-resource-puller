@@ -34,3 +34,5 @@ before 1.6.1 we have texture-pack instead, meaning a different folder structure
  whatever, the paths are listed anyways.
 
 before 1.5 we have a texture atlas.
+
+the kicker is that the textures and whatnot are in the jar itself and not in the objects.
