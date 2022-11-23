@@ -10,6 +10,7 @@ asset_indexes = os.listdir(asset_folder+"indexes/")
 asset_objects = os.listdir(asset_folder+"objects/")
 asset_jars = os.listdir(dotmc+"versions/")
 selected_asset_index = None
+selected_asset_jar = None
 
 def clear():
     os.system("cls" if os.name in ("nt", "dos") else "clear")
@@ -49,26 +50,27 @@ def select_asset_index():
         selected_asset_index = None
     return
 
-
-
+def select_asset_jar():
+    global asset_jars, selected_asset_jar
+    print("\n\n")
+    [print(v) for v in asset_jars]
+    print("\n")
+    _selected_asset_jar_folder = os.listdir(input("Select version: "))
+    _selected_asset_jar_folder_jar = None
+    [_selected_asset_jar_folder.remove(j) for j in _selected_asset_jar_folder if j[len(j)-4:] != ".jar"]
+    if len(_selected_asset_jar_folder) > 1:
+        print("\n\n")
+        [print(j[:-4]) for j in _selected_asset_jar_folder]
+        print("\n")
+        _selected_asset_jar_folder_jar = _selected_asset_jar_folder+input("Select jar file: ")
+        if os.path.isfile(_selected_asset_jar_folder_jar) == False:
+            _selected_asset_jar_folder_jar = None
+    else:
+        _selected_asset_jar_folder_jar = _selected_asset_jar_folder[0]
+    selected_asset_jar = _selected_asset_jar_folder_jar
 
 
 if __name__=="__main__":
-
-
-    if len(asset_indexes) == 0:
-        print("none!")
-        print("cannot find anything in '.minecraft/assets/indexes/'!")
-        exit() # nothing available to handle this yet
-    
-    # get user input on desired version
-    select_valid = False
-    while select_valid == False:
-        print("Step 1: Hashed object extraction")
-        [print(v[:-5]) for v in asset_indexes]
-        selected_version = input("\nSelect version: ")
-        if asset_indexes.index(selected_version+".json"): select_valid = True
-        else: clear()
 
     # load the asset object index as json
     asset_index = open(dotmc+"assets/indexes/"+selected_version+".json").read()
@@ -76,7 +78,6 @@ if __name__=="__main__":
 
     # some directory shortcuts
     pack_root = "Default_"+selected_version+"/"
-    asset_objects = dotmc+"assets/objects/"
     
     # pull all objects from the json
     # this includes all sounds and a few textures
