@@ -141,7 +141,8 @@ if __name__=="__main__":
         print(" Jars: "+asset_jars+"\n Selected Jar: "+str(selected_asset_jar))
         print("\n [1] Change pack name\n [2] Change assets folder\n [3] Change jars folder")
         print(" [4] Select hashed object index\n [5] Select jar file")
-        print(" [6] Extract hashed assets\n [7] Extract jar assets\n [8] Cleanup pack")
+        print(" [6] Extract hashed assets\n [7] Extract jar assets\n [8] Extract all")
+        print(" [9] Clean up pack")
         print(" [0] Exit")
 
         match input(" :: "):
@@ -153,4 +154,5 @@ if __name__=="__main__":
             case "5": select_asset_jar()
             case "6": extract_asset_objects()
             case "7": extract_jar_assets()
-            case "8": finalize_pack()
+            case "8": extract_asset_objects() ; extract_jar_assets()
+            case "9": finalize_pack()
