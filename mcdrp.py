@@ -61,7 +61,7 @@ def select_asset_jar():
     print("\n")
     _selected_asset_jar_folder = os.listdir(input("Select version: "))
     _selected_asset_jar_folder_jar = None
-    [_selected_asset_jar_folder.remove(j) for j in _selected_asset_jar_folder if j[len(j)-4:] != ".jar"]
+    [_selected_asset_jar_folder.remove(j) for j in _selected_asset_jar_folder if j[-4:] != ".jar"]
     if len(_selected_asset_jar_folder) > 1:
         print("\n\n")
         [print(j[:-4]) for j in _selected_asset_jar_folder]
@@ -104,7 +104,7 @@ def finalize_pack():
     os.remove(pack_rootname+"assets/.mcassetsroot")
     shutil.move(pack_rootname+"assets/pack.meta", pack_rootname)
 
-
-
 if __name__=="__main__":
     clear()
+    print("\n")
+    print(" Pack Name: "+pack_rootname[:-1])
