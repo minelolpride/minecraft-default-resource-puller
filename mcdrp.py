@@ -131,7 +131,8 @@ if __name__=="__main__":
         print(" Assets: "+asset_folder+"\n Selected Index: "+str(selected_asset_index))
         print(" Jars: "+asset_jars+"\n Selected Jar: "+str(selected_asset_jar))
         print("\n [1] Change pack name\n [2] Change assets folder\n [3] Change jars folder")
-        print(" [4] Extract hashed assets\n [5] Extract jar assets\n [6] Cleanup pack")
+        print(" [4] Select hashed object index\n [5] Select jar file")
+        print(" [6] Extract hashed assets\n [7] Extract jar assets\n [8] Cleanup pack")
         print(" [0] Exit")
 
         match input(" :: "):
@@ -139,6 +140,8 @@ if __name__=="__main__":
             case "1": change_pack_name(input(" New pack name: "))
             case "2": change_asset_folder(input(" New assets folder path: "))
             case "3": change_asset_jars(input(" New asset jars path: "))
-            case "4": extract_asset_objects()
-            case "5": extract_jar_assets()
-            case "6": finalize_pack()
+            case "4": select_asset_index()
+            case "5": select_asset_jar()
+            case "6": extract_asset_objects()
+            case "7": extract_jar_assets()
+            case "8": finalize_pack()
