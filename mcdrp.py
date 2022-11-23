@@ -56,24 +56,26 @@ def change_asset_jars(new_path):
 
 def select_asset_index():
     global asset_indexes, selected_asset_index
-    print("\n\n")
+    print("\n")
+    if len(os.listdir(asset_indexes)) == 0: print("there are no indexes in here!")
     [print(v[:-5]) for v in os.listdir(asset_indexes)]
     print("\n")
-    selected_asset_index = asset_indexes+input("Select asset index: ")
-    if os.path.isfile(selected_asset_index+".json") == False:
+    selected_asset_index = asset_indexes+input("Select asset index: ")+".json"
+    if os.path.isfile(selected_asset_index) == False:
         selected_asset_index = None
     return
 
 def select_asset_jar():
     global asset_jars, selected_asset_jar
-    print("\n\n")
+    print("\n")
+    if len(os.listdir(asset_jars)) == 0: print(" there are no folders in here! did you make a typo?")
     [print(v) for v in os.listdir(asset_jars)]
     print("\n")
     _selected_asset_jar_folder = os.listdir(input("Select version: "))
     _selected_asset_jar_folder_jar = None
     [_selected_asset_jar_folder.remove(j) for j in _selected_asset_jar_folder if j[-4:] != ".jar"]
     if len(_selected_asset_jar_folder) > 1:
-        print("\n\n")
+        print("\n")
         [print(j[:-4]) for j in _selected_asset_jar_folder]
         print("\n")
         _selected_asset_jar_folder_jar = _selected_asset_jar_folder+input("Select jar file: ")
