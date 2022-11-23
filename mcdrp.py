@@ -3,14 +3,17 @@ import json
 import shutil
 import zipfile
 
+dotmc = os.getenv("APPDATA")+"/.minecraft"
+
+asset_folder = os.listdir(dotmc+"assets/")
+asset_indexes = os.listdir(asset_folder+"indexes/")
+asset_jars = os.listdir(dotmc+"versions/")
+
 def clear():
     os.system("cls" if os.name in ("nt", "dos") else "clear")
 
 if __name__=="__main__":
-    dotmc = os.getenv("APPDATA")+"/.minecraft/"
-
-    asset_versions = os.listdir(dotmc+"assets/indexes/")
-    if len(asset_versions) == 0:
+    if len(asset_indexes) == 0:
         print("none!")
         print("cannot find anything in '.minecraft/assets/indexes/'!")
         exit() # nothing available to handle this yet
@@ -19,9 +22,9 @@ if __name__=="__main__":
     select_valid = False
     while select_valid == False:
         print("Step 1: Hashed object extraction")
-        [print(v[:-5]) for v in asset_versions]
+        [print(v[:-5]) for v in asset_indexes]
         selected_version = input("\nSelect version: ")
-        if asset_versions.index(selected_version+".json"): select_valid = True
+        if asset_indexes.index(selected_version+".json"): select_valid = True
         else: clear()
 
     # load the asset object index as json
@@ -49,17 +52,16 @@ if __name__=="__main__":
     # for things like block textures we need to dive into the jar file itself
     # if we, lets say, don't have the exact name in the versions dir, we need to ask which to grab
     # though, when we are dealing with specific versions, we may want to ask anyways
-    jar_versions = os.listdir(dotmc+"versions/")
-    if len(jar_versions) == 0:
+    if len(asset_jars) == 0:
         print("there are no jar files in '.minecraft/versions/'!")
         exit() # i don't expect you to get hete but whatever.
     
     select_valid = False
     while select_valid == False:
         print("\nPart 2: JAR asset extraction")
-        [print(v) for v in jar_versions]
+        [print(v) for v in asset_jars]
         selected_jar = input("\nSelect jar version to grab from: ")
-        if jar_versions.index(selected_jar): select_valid = True
+        if asset_jars.index(selected_jar): select_valid = True
         else: clear()
 
     print("renaming destination folder...")
