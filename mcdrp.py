@@ -6,12 +6,12 @@ import zipfile
 
 assert(sys.version_info >= (3, 10), "this script requires at least python 3.10!\nyou are on "+str(sys.version_info.major)+"."+str(sys.version_info.minor)+".")
 
-dotmc = os.getenv("APPDATA")+"/.minecraft"
+dotmc = os.getenv("APPDATA")+"/.minecraft/"
 
-asset_folder = os.listdir(dotmc+"assets/")
-asset_indexes = os.listdir(asset_folder+"indexes/")
-asset_objects = os.listdir(asset_folder+"objects/")
-asset_jars = os.listdir(dotmc+"versions/")
+asset_folder = dotmc+"assets/"
+asset_indexes = asset_folder+"indexes/"
+asset_objects = asset_folder+"objects/"
+asset_jars = dotmc+"versions/"
 selected_asset_index = None
 selected_asset_jar = None
 pack_rootname = "McDefaultResources/" # change this to whatever if you want
