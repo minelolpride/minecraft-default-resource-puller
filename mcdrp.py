@@ -85,6 +85,9 @@ def select_asset_jar():
 
 def extract_asset_objects():
     global selected_asset_index, asset_objects, pack_rootname
+    if selected_asset_index == None:
+        print("you have no hashed object index selected!")
+        return
     print("attempting to copy hashed objects now...")
     _index = json.loads(open(select_asset_index).read())
     for obj in _index["objects"]:
@@ -100,6 +103,9 @@ def extract_asset_objects():
 
 def extract_jar_assets():
     global selected_asset_jar, pack_rootname
+    if selected_asset_jar == None:
+        print("you have no jar selected!")
+        return
     print("attempting to extract jar assets now...")
     _jar = zipfile.ZipFile(selected_asset_jar, 'r', allowZip64=True)
     for file in _jar.namelist():
