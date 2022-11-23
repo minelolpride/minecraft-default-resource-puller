@@ -19,9 +19,19 @@ pack_rootname = "McDefaultResources/" # change this to whatever if you want
 def clear():
     os.system("cls" if os.name in ("nt", "dos") else "clear")
 
+def change_pack_name(new_name):
+    global pack_rootname
+    if len(new_name) == 0:
+        pack_rootname = "McDefaultResources/"
+        return
+    if new_name[-1:] != "/":
+        new_name = new_name+"/"
+    pack_rootname = new_name
+    return
+
 def change_asset_folder(new_path):
     global asset_folder, asset_indexes, asset_objects
-    if new_path == None:
+    if len(new_path) == 0:
         # set to default
         asset_folder = os.listdir(dotmc+"assets/")
         return
@@ -32,12 +42,12 @@ def change_asset_folder(new_path):
         asset_indexes = os.listdir(asset_folder+"indexes/")
         asset_objects = os.listdir(asset_folder+"objects/")
         return
-    change_asset_folder(None)
+    change_asset_folder("")
     return
 
 def change_asset_jars(new_path):
     global asset_jars
-    if new_path == None:
+    if len(new_path) == 0:
         asset_jars = os.listdir(dotmc+"versions/")
         return
     # theres no extra checks really to do here
@@ -101,10 +111,28 @@ def extract_jar_assets():
 def finalize_pack():
     global pack_rootname
     print("finalizing pack...")
-    os.remove(pack_rootname+"assets/.mcassetsroot")
-    shutil.move(pack_rootname+"assets/pack.meta", pack_rootname)
+    try:
+        os.remove(pack_rootname+"assets/.mcassetsroot")
+        shutil.move(pack_rootname+"assets/pack.meta", pack_rootname)
+    except:
+        pass
+    return
 
 if __name__=="__main__":
-    clear()
-    print("\n")
-    print(" Pack Name: "+pack_rootname[:-1])
+    while True:
+        clear()
+        print("\n Pack Name: "+pack_rootname[:-1])
+        print(" Assets: "+asset_folder+"\n Selected Index: "+str(selected_asset_index))
+        print(" Jars: "+asset_jars+"\n Selected Jar: "+str(selected_asset_jar))
+        print("\n [1] Change pack name\n [2] Change assets folder\n [3] Change jars folder")
+        print(" [4] Extract hashed assets\n [5] Extract jar assets\n [6] Cleanup pack")
+        print(" [0] Exit")
+
+        match input(" :: "):
+            case "0": exit()
+            case "1": change_pack_name(input(" New pack name: "))
+            case "2": change_asset_folder(input(" New assets folder path: "))
+            case "3": change_asset_jars(input(" New asset jars path: "))
+            case "4": extract_asset_objects()
+            case "5": extract_jar_assets()
+            case "6": finalize_pack()
