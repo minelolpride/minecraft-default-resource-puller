@@ -100,12 +100,12 @@ def extract_asset_objects():
     _index = json.loads(open(selected_asset_index).read())
     for obj in _index["objects"]:
         obj_hash = _index["objects"][obj]["hash"]
-        print(obj_hash+" -> "+pack_rootname+"assets\\"+obj)
         try:
-            shutil.copyfile(asset_objects+obj_hash[:2]+"\\"+obj_hash, pack_rootname+"assets\\"+obj)
-        except:
             os.makedirs(os.path.dirname(pack_rootname+"assets\\"+obj), exist_ok=True)
             shutil.copyfile(asset_objects+obj_hash[:2]+"\\"+obj_hash, pack_rootname+"assets\\"+obj)
+            print(obj_hash+" -> "+pack_rootname+"assets\\"+obj)
+        except FileNotFoundError:
+            print(obj_hash+" not found in objects!")
     print("hashed objects copied.")
     return
 
