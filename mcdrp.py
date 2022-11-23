@@ -1,7 +1,10 @@
 import os
+import sys
 import json
 import shutil
 import zipfile
+
+assert(sys.version_info >= (3, 10), "this script requires at least python 3.10!\nyou are on "+str(sys.version_info.major)+"."+str(sys.version_info.minor)+".")
 
 dotmc = os.getenv("APPDATA")+"/.minecraft"
 
@@ -100,6 +103,8 @@ def finalize_pack():
     print("finalizing pack...")
     os.remove(pack_rootname+"assets/.mcassetsroot")
     shutil.move(pack_rootname+"assets/pack.meta", pack_rootname)
+
+
 
 if __name__=="__main__":
     clear()
