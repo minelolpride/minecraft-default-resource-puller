@@ -89,7 +89,7 @@ def extract_asset_objects():
         print("you have no hashed object index selected!")
         return
     print("attempting to copy hashed objects now...")
-    _index = json.loads(open(select_asset_index).read())
+    _index = json.loads(open(selected_asset_index).read())
     for obj in _index["objects"]:
         obj_hash = obj["hash"]
         print(obj_hash+" -> "+pack_rootname+"assets/"+obj)
