@@ -7,10 +7,36 @@ dotmc = os.getenv("APPDATA")+"/.minecraft"
 
 asset_folder = os.listdir(dotmc+"assets/")
 asset_indexes = os.listdir(asset_folder+"indexes/")
+asset_objects = os.listdir(asset_folder+"objects/")
 asset_jars = os.listdir(dotmc+"versions/")
 
 def clear():
     os.system("cls" if os.name in ("nt", "dos") else "clear")
+
+def change_asset_folder(new_path):
+    global asset_folder, asset_indexes, asset_objects
+    if new_path == None:
+        # set to default
+        asset_folder = os.listdir(dotmc+"assets/")
+        return
+    if os.path.exists(new_path+"indexes/") and os.path.exists(new_path+"objects/"):
+        # set only if we have indexes and objects!
+        # update the indexes and objects path too while were at it
+        asset_folder = os.listdir(new_path)
+        asset_indexes = os.listdir(asset_folder+"indexes/")
+        asset_objects = os.listdir(asset_folder+"objects/")
+        return
+    change_asset_folder(None)
+    return
+
+def change_asset_jars(new_path):
+    global asset_jars
+    if new_path == None:
+        asset_jars = os.listdir(dotmc+"versions/")
+        return
+    # theres no extra checks really to do here
+    asset_jars = os.listdir(new_path)
+    return
 
 if __name__=="__main__":
     if len(asset_indexes) == 0:
