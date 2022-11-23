@@ -45,8 +45,8 @@ def select_asset_index():
     print("\n\n")
     [print(v[:-5]) for v in asset_indexes]
     print("\n")
-    selected_asset_index = input("Select asset index: ")
-    if os.path.isfile(asset_indexes+select_asset_index+".json") == False:
+    selected_asset_index = asset_indexes+input("Select asset index: ")
+    if os.path.isfile(selected_asset_index+".json") == False:
         selected_asset_index = None
     return
 
@@ -68,6 +68,9 @@ def select_asset_jar():
     else:
         _selected_asset_jar_folder_jar = _selected_asset_jar_folder[0]
     selected_asset_jar = _selected_asset_jar_folder_jar
+
+def extract_asset_objects():
+    global asset
 
 
 if __name__=="__main__":
@@ -92,21 +95,6 @@ if __name__=="__main__":
             shutil.copyfile(asset_objects+"/"+object_hash[:2]+"/"+object_hash, pack_root+"assets/"+object)
 
     print("hashed objects copied.")
-
-    # for things like block textures we need to dive into the jar file itself
-    # if we, lets say, don't have the exact name in the versions dir, we need to ask which to grab
-    # though, when we are dealing with specific versions, we may want to ask anyways
-    if len(asset_jars) == 0:
-        print("there are no jar files in '.minecraft/versions/'!")
-        exit() # i don't expect you to get hete but whatever.
-    
-    select_valid = False
-    while select_valid == False:
-        print("\nPart 2: JAR asset extraction")
-        [print(v) for v in asset_jars]
-        selected_jar = input("\nSelect jar version to grab from: ")
-        if asset_jars.index(selected_jar): select_valid = True
-        else: clear()
 
     print("renaming destination folder...")
     pack_root_2 = "Default_"+selected_jar+"/"
