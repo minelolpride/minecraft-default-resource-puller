@@ -57,7 +57,7 @@ def change_asset_jars(new_path):
 def select_asset_index():
     global asset_indexes, selected_asset_index
     print("\n\n")
-    [print(v[:-5]) for v in asset_indexes]
+    [print(v[:-5]) for v in os.listdir(asset_indexes)]
     print("\n")
     selected_asset_index = asset_indexes+input("Select asset index: ")
     if os.path.isfile(selected_asset_index+".json") == False:
@@ -67,7 +67,7 @@ def select_asset_index():
 def select_asset_jar():
     global asset_jars, selected_asset_jar
     print("\n\n")
-    [print(v) for v in asset_jars]
+    [print(v) for v in os.listdir(asset_jars)]
     print("\n")
     _selected_asset_jar_folder = os.listdir(input("Select version: "))
     _selected_asset_jar_folder_jar = None
