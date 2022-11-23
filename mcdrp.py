@@ -9,6 +9,7 @@ asset_folder = os.listdir(dotmc+"assets/")
 asset_indexes = os.listdir(asset_folder+"indexes/")
 asset_objects = os.listdir(asset_folder+"objects/")
 asset_jars = os.listdir(dotmc+"versions/")
+selected_asset_index = None
 
 def clear():
     os.system("cls" if os.name in ("nt", "dos") else "clear")
@@ -38,7 +39,23 @@ def change_asset_jars(new_path):
     asset_jars = os.listdir(new_path)
     return
 
+def select_asset_index():
+    global asset_indexes, selected_asset_index
+    print("\n\n")
+    [print(v[:-5]) for v in asset_indexes]
+    print("\n")
+    selected_asset_index = input("Select asset index: ")
+    if os.path.isfile(asset_indexes+select_asset_index+".json") == False:
+        selected_asset_index = None
+    return
+
+
+
+
+
 if __name__=="__main__":
+
+
     if len(asset_indexes) == 0:
         print("none!")
         print("cannot find anything in '.minecraft/assets/indexes/'!")
