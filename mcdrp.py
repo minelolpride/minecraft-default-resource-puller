@@ -11,6 +11,7 @@ asset_objects = os.listdir(asset_folder+"objects/")
 asset_jars = os.listdir(dotmc+"versions/")
 selected_asset_index = None
 selected_asset_jar = None
+pack_rootname = "McDefaultResources/" # change this to whatever if you want
 
 def clear():
     os.system("cls" if os.name in ("nt", "dos") else "clear")
@@ -70,35 +71,23 @@ def select_asset_jar():
     selected_asset_jar = _selected_asset_jar_folder_jar
 
 def extract_asset_objects():
-    global asset
+    global selected_asset_index, asset_objects
+    _index = json.loads(open(select_asset_index).read())
+    print("attempting to copy hashed objects now...")
+    for obj in _index["objects"]:
+        obj_hash = obj["hash"]
+        print(obj_hash+" -> "+pack_rootname+"assets/"+obj)
+        try:
+            shutil.copyfile(asset_objects+"/"+obj_hash[:2]+"/"+obj_hash, pack_rootname+"assets/"+obj)
+        except:
+            os.makedirs(os.path.dirname(pack_rootname+"assets/"+obj), exist_ok=True)
+            shutil.copyfile(asset_objects+"/"+obj_hash[:2]+"/"+obj_hash, pack_rootname+"assets/"+obj)
+    print("hashed objects copied.")
+    return
+
 
 
 if __name__=="__main__":
-
-    # load the asset object index as json
-    asset_index = open(dotmc+"assets/indexes/"+selected_version+".json").read()
-    asset_index_json = json.loads(asset_index)
-
-    # some directory shortcuts
-    pack_root = "Default_"+selected_version+"/"
-    
-    # pull all objects from the json
-    # this includes all sounds and a few textures
-    print("attempting to copy hashed objects now...")
-    for object in asset_index_json["objects"]:
-        object_hash = asset_index_json["objects"][object]["hash"]
-        print(object_hash+" -> "+pack_root+"assets/"+object)
-        try:
-            shutil.copyfile(asset_objects+"/"+object_hash[:2]+"/"+object_hash, pack_root+"assets/"+object)
-        except FileNotFoundError:
-            os.makedirs(os.path.dirname(pack_root+"assets/"+object), exist_ok=True)
-            shutil.copyfile(asset_objects+"/"+object_hash[:2]+"/"+object_hash, pack_root+"assets/"+object)
-
-    print("hashed objects copied.")
-
-    print("renaming destination folder...")
-    pack_root_2 = "Default_"+selected_jar+"/"
-    shutil.move(pack_root, pack_root_2)
     
     print("attempting to pull jar assets now...")
     target_jar = dotmc+"/versions/"+selected_jar+"/"+selected_jar+".jar"
