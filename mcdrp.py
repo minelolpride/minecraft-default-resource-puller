@@ -24,7 +24,7 @@ def change_pack_name(new_name):
     if len(new_name) == 0:
         pack_rootname = "McDefaultResources\\"
         return
-    if new_path[-1:] != "/" or new_path[-1:] != "\\": new_path=new_path+"\\"
+    if new_name[-1:] != "/" or new_name[-1:] != "\\": new_name=new_name+"\\"
     pack_rootname = new_name
     return
 
