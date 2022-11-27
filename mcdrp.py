@@ -157,5 +157,5 @@ if __name__=="__main__":
             case "5": select_asset_jar()
             case "6": extract_asset_objects()
             case "7": extract_jar_assets()
-            case "8": extract_asset_objects() ; extract_jar_assets()
+            case "8": extract_asset_objects() ; extract_jar_assets() ; finalize_pack()
             case "9": finalize_pack()
