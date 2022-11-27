@@ -130,9 +130,7 @@ def finalize_pack():
     print("finalizing pack...")
     try:
         os.remove(pack_rootname+"assets\\.mcassetsroot")
-        shutil.move(pack_rootname+"assets\\pack.meta", pack_rootname)
     except:
-        # those files probably don't exist :)
         pass
     return
 
