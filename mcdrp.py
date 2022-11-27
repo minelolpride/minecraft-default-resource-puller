@@ -109,6 +109,8 @@ def extract_asset_objects():
             print(obj_hash+" -> "+pack_rootname+"assets\\"+obj)
         except FileNotFoundError:
             print(obj_hash+" not found in objects!")
+    try: shutil.move(pack_rootname+"assets\\pack.mcmeta", pack_rootname)
+    except: pass # already exists? ok.
     print("hashed objects copied.")
     return
 
