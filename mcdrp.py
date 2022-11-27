@@ -120,7 +120,7 @@ def extract_jar_assets():
     print("attempting to extract jar assets now...")
     _jar = zipfile.ZipFile(selected_asset_jar, 'r', allowZip64=True)
     for file in _jar.namelist():
-        if file.startswith("assets/"):
+        if file.startswith("assets/") or file == "pack.mcmeta" or file == "pack.png":
             _jar.extract(file, pack_rootname)
     print("jar assets extracted.")
     return
