@@ -62,7 +62,7 @@ def select_asset_index():
     [print(v[:-5]) for v in os.listdir(asset_indexes)]
     print("\n")
     selected_asset_index = asset_indexes+input("Select asset index: ")+".json"
-    if os.path.isfile(selected_asset_index) == False:
+    if not os.path.isfile(selected_asset_index):
         selected_asset_index = None
         return
     selected_asset_index = selected_asset_index.replace("/", "\\")
@@ -75,6 +75,9 @@ def select_asset_jar():
     [print(v) for v in os.listdir(asset_jars)]
     print("\n")
     _selected_asset_jar_folder = asset_jars+input("Select version: ")+"\\"
+    if not os.path.exists(_selected_asset_jar_folder):
+        selected_asset_jar = None
+        return
     _selected_asset_jar_folder_files = os.listdir(_selected_asset_jar_folder)
     _selected_asset_jar_folder_jar = None
     [_selected_asset_jar_folder_files.remove(j) for j in _selected_asset_jar_folder_files if j[-4:] != ".jar"]
